@@ -10,10 +10,17 @@ body {
 
 .box {
 	margin: auto;
+	width: 200px;
+	height: 200px;
 	background-color: #FFF;
 	opacity: 0.9;
 	padding: 50px;
 	text-align: center;
+}
+
+#results {
+	margin-top: 20px;
+	display: none;
 }
 
 #status {
@@ -32,4 +39,8 @@ body {
 
 #roi.negative {
 	color: red;
+}
+
+#loading {
+	display: none;
 }

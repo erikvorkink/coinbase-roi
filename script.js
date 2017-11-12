@@ -1,22 +1,37 @@
 'use strict';
 
-// Reload page after a while
-var refreshMins = 30;
-setTimeout(function() { location.reload() }, 60000 * refreshMins);
-
 // Get updated amount
-axios.get('http://localhost:3000/')
-	.then(function(response) {
-		var roi = response.data.balance;
-		if (roi === undefined || roi.length === 0) {
-			alert('Unable to load data');
-			return;
-		}
-		displayROI(roi);
-	})
-	.catch(function(error) {
-		alert(error);
-	});
+getROI();
+
+// Reload after a while
+var refreshMins = 15;
+setInterval(getROI, 60000 * refreshMins);
+
+function getROI() {console.log('getROI');
+	var loadingEl = document.getElementById('loading');
+	var resultsEl = document.getElementById('results');
+	resultsEl.style.display = 'none';
+	loadingEl.style.display = 'block';
+
+	setTimeout(function() {
+		axios.get('http://localhost:3000/')
+			.then(function(response) {
+				if (!response.data.success) {
+					alert('Unable to load data');
+					return;
+				}
+
+				loadingEl.style.display = 'none';
+				resultsEl.style.display = 'block';
+
+				var roi = -(response.data.investment - response.data.balance).toFixed(2);
+				displayROI(roi);
+			})
+			.catch(function(error) {
+				alert(error);
+			});
+	}, 600); // because the loading icon looks cool
+}
 
 function statusForROI(roi) {
 	if (roi <= -50) { return '😢'; }
