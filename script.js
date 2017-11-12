@@ -7,14 +7,15 @@ getROI();
 var refreshMins = 15;
 setInterval(getROI, 60000 * refreshMins);
 
-function getROI() {console.log('getROI');
+function getROI() {
 	var loadingEl = document.getElementById('loading');
 	var resultsEl = document.getElementById('results');
 	resultsEl.style.display = 'none';
 	loadingEl.style.display = 'block';
 
 	setTimeout(function() {
-		axios.get('http://localhost:3000/')
+		var url = location.protocol + '//' + location.hostname + ':3000'; // assumes node is serving here
+		axios.get(url)
 			.then(function(response) {
 				if (!response.data.success) {
 					alert('Unable to load data');
