@@ -2,10 +2,10 @@ const express = require('express')
 const app = express()
 const Client = require('coinbase').Client
 
-const ALLOWED_ORIGINS = ['http://localhost:2000', 'http://erikvorkink.com']
-const COINBASE_API_KEY = '5fevWX8TOz5wKJcN'
-const COINBASE_API_SECRET = 'TiVVCKrgbZFFQJOPzku8jyrQBDo5Xxdx'
-const INVESTMENT = 100.00
+const ALLOWED_ORIGINS = [process.env.ROI_ALLOWED_ORIGIN]
+const COINBASE_API_KEY = process.env.ROI_COINBASE_API_KEY;
+const COINBASE_API_SECRET = process.env.ROI_COINBASE_API_SECRET;
+const INVESTMENT = parseFloat(process.env.ROI_INVESTMENT);
 
 const client = new Client({ 'apiKey': COINBASE_API_KEY, 'apiSecret': COINBASE_API_SECRET })
 
