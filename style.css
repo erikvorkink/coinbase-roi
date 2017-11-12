@@ -1,0 +1,35 @@
+body, html {
+	height: 100%;
+	display: grid;
+}
+
+body {
+	background-image: url(bitcoin-2007769_1920.jpg);
+	background-size: cover;
+}
+
+.box {
+	margin: auto;
+	background-color: #FFF;
+	opacity: 0.9;
+	padding: 50px;
+	text-align: center;
+}
+
+#status {
+	font-size: 100px;
+}
+
+#roi {
+	padding-top: 5px;
+	font-family: 'Roboto Slab', serif;
+	font-size: 50px;
+}
+
+#roi.positive {
+	color: green;
+}
+
+#roi.negative {
+	color: red;
+}
