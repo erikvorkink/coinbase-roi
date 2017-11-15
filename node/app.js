@@ -9,13 +9,17 @@ const INVESTMENT = parseFloat(process.env.ROI_INVESTMENT);
 
 const client = new Client({ 'apiKey': COINBASE_API_KEY, 'apiSecret': COINBASE_API_SECRET })
 
-app.get('/', (req, res) => {
-	fetchBalance().then(balance =>{
+app.get('/roi', (req, res) => {
+	fetchBalance().then(balance => {
 		setHeaders(req, res)
+		let profit = balance - INVESTMENT
+		let roi = (INVESTMENT > 0) ? (profit / INVESTMENT) : 0; // .5 = 50%
 		res.send(JSON.stringify({
 			success: true,
-			investment: parseFloat(INVESTMENT.toFixed(2)),
-			balance: parseFloat(balance.toFixed(2))
+			investment: INVESTMENT,
+			balance: balance,
+			profit: profit,
+			roi: roi
 		}))
 	})
 })

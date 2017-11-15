@@ -19,7 +19,6 @@ body {
 }
 
 #results {
-	margin-top: 20px;
 	display: none;
 }
 
@@ -27,18 +26,25 @@ body {
 	font-size: 100px;
 }
 
-#roi {
-	padding-top: 5px;
+#profit {
+	padding-top: 15px;
 	font-family: 'Roboto Slab', serif;
 	font-size: 50px;
 }
 
-#roi.positive {
+#profit.positive {
 	color: green;
 }
 
-#roi.negative {
+#profit.negative {
 	color: red;
+}
+
+#roi {
+	padding-top: 15px;
+	font-size: 20px;
+	font-weight: bold;
+	color: #888;
 }
 
 #loading {
