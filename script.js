@@ -26,8 +26,11 @@ function getROI() {
 				loadingEl.style.display = 'none';
 				resultsEl.style.display = 'block';
 
+				var roiPercent = response.data.roi * 100;
+
+				displayIcon(roiPercent);
 				displayProfit(response.data.profit);
-				displayROI(response.data.roi * 100);
+				displayROI(roiPercent);
 			})
 			.catch(function(error) {
 				alert(error);
@@ -35,11 +38,11 @@ function getROI() {
 	}, 600); // because the loading icon looks cool
 }
 
-function statusForProfit(profit) {
-	if (profit <= -50) { return '😢'; }
-	if (profit < -5) { return '🙁'; }
-	if (profit <= 0) { return '🙄'; }
-	if (profit < 50) { return '😀'; }
+function iconForRoiPercent(roiPercent) {
+	if (roiPercent <= -50) { return '😢'; }
+	if (roiPercent < -5) { return '🙁'; }
+	if (roiPercent <= 0) { return '🙄'; } // break even
+	if (roiPercent < 50) { return '😀'; }
 	return '🤑';
 }
 
@@ -47,11 +50,13 @@ function formattedCurrency(amount) {
 	return (amount < 0 ? '-' : '+') + '$' + Math.abs(amount).toFixed(2);
 }
 
-function displayProfit(profit) {
-	var statusEl = document.getElementById('status');
-	var profitEl = document.getElementById('profit');
+function displayIcon(roiPercent) {
+	var iconEl = document.getElementById('icon');
+	iconEl.innerHTML = iconForRoiPercent(roiPercent);
+}
 
-	statusEl.innerHTML = statusForProfit(profit);
+function displayProfit(profit) {
+	var profitEl = document.getElementById('profit');
 	profitEl.innerHTML = formattedCurrency(profit);
 	if (profit != 0) {
 		profitEl.classList.add(profit > 0 ? 'positive' : 'negative');
