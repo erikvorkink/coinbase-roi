@@ -15,7 +15,7 @@ function getROI() {
 
 	setTimeout(function() {
 		// Assumes node is serving at the same host (different port) as the front end
-		var url = location.protocol + '//' + location.hostname + ':3000' + '/roi'; // assumes node is serving here
+		var url = 'http://' + location.hostname + ':3000' + '/roi';
 		axios.get(url)
 			.then(function(response) {
 				if (!response.data.success) {
