@@ -2,14 +2,13 @@ const express = require('express')
 const app = express()
 const Client = require('coinbase').Client
 
-const ALLOWED_ORIGINS = [process.env.ROI_ALLOWED_ORIGIN]
 const COINBASE_API_KEY = process.env.ROI_COINBASE_API_KEY;
 const COINBASE_API_SECRET = process.env.ROI_COINBASE_API_SECRET;
 const INVESTMENT = parseFloat(process.env.ROI_INVESTMENT);
 
 const client = new Client({ 'apiKey': COINBASE_API_KEY, 'apiSecret': COINBASE_API_SECRET })
 
-app.get('/roi', (req, res) => {
+app.get('/roi/data', (req, res) => {
 	fetchBalance().then(balance => {
 		setHeaders(req, res)
 		let profit = balance - INVESTMENT
@@ -24,16 +23,11 @@ app.get('/roi', (req, res) => {
 	})
 })
 
-app.listen(3000, () => console.log('App listening on port 3000'))
+app.listen(3000, 'localhost', () => console.log('App listening on port 3000'))
 
 function setHeaders(req, res) {
 	res.setHeader('Content-Type', 'application/json')
 	res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS')
-
-	let origin = req.headers.origin
-	if (ALLOWED_ORIGINS.indexOf(origin) !== -1) {
-		res.header('Access-Control-Allow-Origin', origin)
-	}
 }
 
 function fetchBalance() {

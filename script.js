@@ -14,8 +14,7 @@ function getROI() {
 	loadingEl.style.display = 'block';
 
 	setTimeout(function() {
-		// Assumes node is serving at the same host (different port) as the front end
-		var url = 'http://' + location.hostname + ':3000' + '/roi';
+		var url = './data'; // nginx + reverse proxy to the node server
 		axios.get(url)
 			.then(function(response) {
 				if (!response.data.success) {
